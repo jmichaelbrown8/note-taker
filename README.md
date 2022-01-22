@@ -1,2 +1,2 @@
-# note-taker
-note-taker express heroku app
+# 📝 note-taker
+note-taker app using express and deployed to heroku.
