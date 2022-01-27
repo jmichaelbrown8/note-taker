@@ -13,13 +13,14 @@ const writeToFile = (dest, data) => {
 };
 
 const readAndAppend = (filename, obj) => {
-    fs.readFile(filename, 'utf8', (err, data) => {
+    return fs.readFile(filename, 'utf8', (err, data) => {
         if (err) {
             console.error(err);
           } else {
             const parsedData = JSON.parse(data);
             parsedData.push(obj);
             writeToFile(filename, parsedData);
+            console.log(`Wrote ${JSON.stringify(obj)} to ${filename}`)
           }
     })
 };

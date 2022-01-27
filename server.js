@@ -16,15 +16,21 @@ app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname, './public/notes.html'));  
 });
 
-app.get('/api/notes', (req, res) => {
-  // this is needed to immediately read from file
-  readFromFile('./db/db.json')
-    .then(
-      (data) => res.json(JSON.parse(data))
-    );
+app.get( '/api/notes', async ( req, res ) => {
+  try {
+    // this is needed to immediately read from file
+    const data = await readFromFile( './db/db.json' );
+    res.json( JSON.parse( data ) );
+
+  } catch ( error ) {
+    console.error( error );
+    res.status( 500 );
+    res.json( { message: "Error retrieving notes", error: error.stack } );
+  }
+
 });
 
-app.post('/api/notes', (req, res) => {
+app.post( '/api/notes', ( req, res ) => {
   const note = { 
     id: uuid(),
     ...req.body 
@@ -33,16 +39,17 @@ app.post('/api/notes', (req, res) => {
   res.json( note );
 });
 
-app.delete('/api/notes/:id', (req, res) => {
+app.delete('/api/notes/:id', async (req, res) => {
   const id = req.params.id;
-  readFromFile('./db/db.json')
-    .then( data => JSON.parse(data) )
-    .then( notesArray => notesArray.filter( note => note.id !== id ) )
-    .then( async newNotesArray => {
-      await writeToFile('./db/db.json', newNotesArray);
-      res.json( newNotesArray );
-    } )
-    ;
+  const fileData = await readFromFile( './db/db.json' );
+  const fileObj = JSON.parse( fileData );
+  const notesArray = fileObj.filter( note => note.id !== id );
+  const err = writeToFile('./db/db.json', notesArray);
+
+  err ? console.error(err) : console.log(`Deleted id: ${id} from ./db/db.json`);
+
+  res.json( notesArray );
+
 })
 
 app.get('*', (req, res) => {
