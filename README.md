@@ -23,7 +23,7 @@ This is a web app to jot down some notes. There is no authentication, so beware 
 There are currently no tests.
 
 ## Deployment
-This app is deployed to Heroku at this link: https://note-taker-express-heroku.herokuapp.com/notes
+This app is deployed to Heroku at this link: https://noted-express.herokuapp.com/notes
 
 To deploy your own, link your github repo to a heroku app and click deploy!
 ## Usage
