@@ -1,4 +1,4 @@
-# 📝 note-taker (using express and heroku)
+# 📝 noted (built with express and deployed with heroku)
 This is a web app to jot down some notes. There is no authentication, so beware that anyone can add or delete your notes!
 
 ## Libraries
