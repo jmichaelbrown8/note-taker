@@ -4,6 +4,7 @@ This is a web app to jot down some notes. There is no authentication, so beware 
 ## Libraries
 * node.js
 * express
+* uuid
 * util
 * fs
 * path

@@ -1,7 +1,7 @@
 const express = require('express');
 const notes = express.Router();
 const { readAndAppend, readFromFile, writeToFile } = require('../helpers/fileHelpers');
-const uuid = require('../helpers/uuid');
+const { v4: uuid } = require('uuid');
 
 notes.get('/', async (req, res) => {
     try {
